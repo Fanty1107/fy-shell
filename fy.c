@@ -1,20 +1,24 @@
-#include <stdlib.h>
 #define FYLIB_ARENA_IMPLEMENTATION
 #include "fylib.h"
+#include "fyshell.h"
 #include <sys/wait.h>
 
-typedef struct{
-    const char *builtin_name;
-    i32 (*foo)(char **);
-}t_builtin;
-
-t_builtin builtin[] ={
-//    {.builtin_name="echo", .foo=fy_echo},
+static t_builtin builtin[] ={
+    {.builtin_name="echo", .foo=fy_echo},
     {.builtin_name="env", .foo=fy_env},
     {.builtin_name="exit", .foo=fy_exit},
+    {.builtin_name="builtin", .foo=fy_builtin},
     {.builtin_name=NULL},
 };
 b32 status = 0;
+
+i32 fy_builtin(char **args){
+    (void)args;
+    for(i32 i = 0; builtin[i].builtin_name ; i++){
+        printf("%s\n", builtin[i].builtin_name);
+    }
+    return EXIT_SUCCESS;
+}
 
 void fy_launch(char **args){
    if(fork() == FY_PROC)
@@ -78,7 +82,6 @@ void fy_exec(char **args){
 }
 
 int main(void){
-    //readline is better
     mem_arena *arena = arena_create(KiB(4));
     char *line;
     char **args;

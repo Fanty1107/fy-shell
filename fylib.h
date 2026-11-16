@@ -271,7 +271,6 @@ typedef struct{
 
 //FILE operations:
 
-void Getcwd(char *b, size_t size);
 #define READ_FILE(path, buffer_out) do { \
     FILE *file = fopen((path), "r"); \
     if (file == NULL) { \
@@ -311,11 +310,5 @@ void Getcwd(char *b, size_t size);
     *(buffer_out) = buffer; \
 } while(0)
 //tmp utils
-#define FY_PROC 0
-void Print_logo();
-i32 fy_exit(char **);
-i32 fy_env(char **);
-void cool_exit();
-void print_builtin(); //TODO
 #endif//FY_LIB_H
 

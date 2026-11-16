@@ -1,4 +1,5 @@
 #include "fylib.h"
+#include "fyshell.h"
 
 void Getcwd(char *buf, size_t size){
     if(NULL == getcwd(buf, size))
@@ -17,7 +18,7 @@ printf(G"    █████▒ ▓██   ██▓ \n"
         "             ░ ░     \n");
 }
 void print_builtin(){
-
+    
 }
 void cool_exit(){
         const char *charging[] = {
