@@ -17,9 +17,6 @@ printf(G"    █████▒ ▓██   ██▓ \n"
         "            ░ ░     \n"
         "             ░ ░     \n");
 }
-void print_builtin(){
-    
-}
 void cool_exit(){
         const char *charging[] = {
         "[            ]",
