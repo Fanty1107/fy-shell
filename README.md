@@ -5,8 +5,8 @@
 https://github.com/user-attachments/assets/0ccd57a1-3324-424e-aa5e-2ba648e134da
 
 ### Infos:
-No AI used in this project
+-No AI used in this project
 
-Is using my own lib with arena allocator and types
+-Is using my own lib with arena allocator and types
 
-A lot of error handling is missing >.<
+-A lot of error handling is missing >.<
