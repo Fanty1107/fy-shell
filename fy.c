@@ -20,15 +20,6 @@ i32 fy_builtin(char **args){
     return EXIT_SUCCESS;
 }
 
-void fy_launch(char **args){
-   if(fork() == FY_PROC)
-       execvp(args[0], args);
-   else{
-        wait(&status);
-        if(WIFEXITED(status))
-            status = WEXITSTATUS(status);
-   }
-}
 
 char *fy_read_line(){
     char *buf;
@@ -55,7 +46,7 @@ char *fy_read_line(){
 #define DEL "\n\t \v\f\r"
 char **fy_split_line(char *line, mem_arena *arena){
     char **tokens;
-    tokens = arena_push(arena, sizeof(*tokens), false);
+    tokens = (char **)arena_push(arena, sizeof(*tokens), false);
     i32 position = 0;
 
     for(char *token = strtok(line, DEL); token; token = strtok(NULL, DEL)){
@@ -67,6 +58,15 @@ char **fy_split_line(char *line, mem_arena *arena){
 
     tokens[position] = NULL;
     return tokens;
+}
+void fy_launch(char **args){
+   if(fork() == FY_PROC)
+       execvp(args[0], args);
+   else{
+        wait(&status);
+        if(WIFEXITED(status))
+            status = WEXITSTATUS(status);
+   }
 }
 void fy_exec(char **args){
     int i = 0;
@@ -83,9 +83,11 @@ void fy_exec(char **args){
 
 int main(void){
     mem_arena *arena = arena_create(KiB(4));
+
     char *line;
     char **args;
     Print_logo();
+
     while((line = fy_read_line())){
         args = fy_split_line(line, arena);
 
